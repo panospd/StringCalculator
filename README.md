@@ -7,7 +7,7 @@
 1. Run the StringCalculator.UI application
 1. Happy calculations. See below for basic examples
 
-Examples
+# Examples
 
 - '1,2,3' will give a result of 6
 - Custom delimiter: '//;\n1;2' will give a result of 3
