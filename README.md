@@ -9,7 +9,10 @@
 
 # Examples
 
-- '1,2,3' will give a result of 6
+- '1,2,3' will give a result of 6 - The default delimiter is ','
 - Custom delimiter: '//;\n1;2' will give a result of 3
 - Custom long delimiter: '//[%%%]\n1%%%2' will give a result of 3
 - Multiple delimiters: '//[^^^][&]\n1^^^2&3' will give a result of 6
+
+# Important Notes
+- New line ('\n') is always used as a delimiter whether you specify custom delimiter(s) or not
