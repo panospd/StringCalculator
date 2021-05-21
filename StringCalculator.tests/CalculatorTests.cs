@@ -18,9 +18,25 @@ namespace StringCalculator.tests
         [TestCase("1,2", ExpectedResult = 3)]
         [TestCase("1,2,3,6,4,2,9", ExpectedResult = 27)]
         [TestCase("1\n2,3", ExpectedResult = 6)]
+        [TestCase("//;\n1;3", ExpectedResult = 4)]
+        [TestCase("2,1003", ExpectedResult = 2)]
         public int Add_WhenInputIsEmpty_ShouldReturn0(string input)
         {
             return sut.Add(input);
+        }
+
+        [Test]
+        public void Add_WhenNegativeNumberPassed_ShouldThrowException()
+        {
+            const string input = "-1,2,3";
+            Assert.Throws<NegativeNumbersNotAllowedException>(() => sut.Add(input), "Negatives not allowed, -1");
+        }
+
+        [Test]
+        public void Add_WhenMultipleNegativesPassed_ShouldThrowException()
+        {
+            const string input = "-1,2,3,-4,-9";
+            Assert.Throws<NegativeNumbersNotAllowedException>(() => sut.Add(input), "Negatives not allowed, -1, -4, -9");
         }
     }
 }
