@@ -6,7 +6,7 @@ namespace StringCalculator.core
 {
     public class Calculator
     {
-        public int Add(string numbers)
+        public static int Add(string numbers)
         {
             if (string.IsNullOrEmpty(numbers))
                 return default;
