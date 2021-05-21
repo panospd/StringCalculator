@@ -4,7 +4,7 @@
 
 1. Download or clone the repository
 1. Open the StringCalculator.sln file using Visual Studio
-1. Run the console applications
+1. Run the StringCalculator.UI application
 1. Happy calculations. See below for basic examples
 
 Examples
