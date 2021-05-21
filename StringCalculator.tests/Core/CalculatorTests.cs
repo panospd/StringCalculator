@@ -5,14 +5,6 @@ namespace StringCalculator.tests
 {
     public class CalculatorTests
     {
-        Calculator sut;
-
-        [SetUp]
-        public void Setup()
-        {
-            sut = new Calculator();
-        }
-
         [TestCase("", ExpectedResult = 0)]
         [TestCase("1", ExpectedResult = 1)]
         [TestCase("1,2", ExpectedResult = 3)]
@@ -26,35 +18,35 @@ namespace StringCalculator.tests
         [TestCase("//[***][&]\n1***3&6", ExpectedResult = 10)]
         public int Add_WhenInputIsEmpty_ShouldReturn0(string input)
         {
-            return sut.Add(input);
+            return Calculator.Add(input);
         }
 
         [Test]
         public void Add_WhenNegativeNumberPassed_ShouldThrowException()
         {
             const string input = "-1,2,3";
-            Assert.Throws<NegativeNumbersNotAllowedException>(() => sut.Add(input), "Negatives not allowed, -1");
+            Assert.Throws<NegativeNumbersNotAllowedException>(() => Calculator.Add(input), "Negatives not allowed, -1");
         }
 
         [Test]
         public void Add_WhenMultipleNegativesPassed_ShouldThrowException()
         {
             const string input = "-1,2,3,-4,-9";
-            Assert.Throws<NegativeNumbersNotAllowedException>(() => sut.Add(input), "Negatives not allowed, -1, -4, -9");
+            Assert.Throws<NegativeNumbersNotAllowedException>(() => Calculator.Add(input), "Negatives not allowed, -1, -4, -9");
         }
 
         [Test]
         public void Add_WhenInvalidDelimiterPassed_ShouldThrowException()
         {
             const string input = "//[\n1[2";
-            Assert.Throws<InvalidDelimitersException>(() => sut.Add(input), "Invalid delimiter detected, [");
+            Assert.Throws<InvalidDelimitersException>(() => Calculator.Add(input), "Invalid delimiter detected, [");
         }
 
         [Test]
         public void Add_WhenInvalidArgumentPassed_ShouldThrowException()
         {
             const string input = "//;\n1;2;a";
-            Assert.Throws<InvalidNumberArgumentException>(() => sut.Add(input), "Invalid number passed, a");
+            Assert.Throws<InvalidNumberArgumentException>(() => Calculator.Add(input), "Invalid number passed, a");
         }
     }
 }

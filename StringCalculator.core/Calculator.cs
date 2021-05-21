@@ -1,6 +1,4 @@
 ﻿using StringCalculator.core.helpers;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace StringCalculator.core
 {
