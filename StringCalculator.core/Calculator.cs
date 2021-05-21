@@ -1,12 +1,13 @@
 ﻿using StringCalculator.core.helpers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace StringCalculator.core
 {
     public class Calculator
     {
-        private const char DefaultDelimiter = ',';
+        private const string DefaultDelimiter = ",";
         private const int Max_Number = 1000;
 
         public int Add(string numbers)
@@ -14,14 +15,14 @@ namespace StringCalculator.core
             if (string.IsNullOrEmpty(numbers))
                 return default;
 
-            var delimiter = GetDelimiter(numbers);
+            var delimiters = GetDelimiters(numbers);
 
-            string input = delimiter == DefaultDelimiter
+            string input = !numbers.HasCustomDelimiter()
                 ? numbers
                 : numbers.Split('\n')[1];
 
             var numbersArray = input
-                .Split(delimiter, '\n')
+                .Split(delimiters, System.StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse);
 
             Validate(numbersArray);
@@ -29,11 +30,6 @@ namespace StringCalculator.core
             return numbersArray
                 .LessThan(Max_Number)
                 .Sum();
-        }
-
-        private IEnumerable<int> FilterGreaterThanMax(IEnumerable<int> numbers)
-        {
-            return numbers.Where(n => n <= Max_Number);
         }
 
         private static void Validate(IEnumerable<int> numbers)
@@ -44,14 +40,29 @@ namespace StringCalculator.core
                 throw new NegativeNumbersNotAllowedException("Negatives not allowed, " + string.Join(", ", negatives));
         }
 
-        private char GetDelimiter(string input)
+        private string[] GetDelimiters(string input)
         {
-            if (!input.StartsWith("//"))
-                return DefaultDelimiter;
+            var delimiters = new List<string> { "\n" };
 
-            return input
-                .Split('\n')[0]
-                .ToCharArray()[2];
+            if (!input.HasCustomDelimiter())
+            {
+                delimiters.Add(DefaultDelimiter);
+                return delimiters.ToArray();
+            }
+
+            var delimiterSection = input.Split('\n')[0];
+            var delimiter = delimiterSection.Substring(2, delimiterSection.Length - 2);
+
+            if (!delimiter.StartsWith("["))
+                return new string[] { delimiter, "\n" };
+
+            var pattern = @"\[(.*?)\]";
+            var matches = Regex.Matches(delimiter, pattern)
+                .Select(d => d.Value.Replace("[", string.Empty).Replace("]", string.Empty));
+
+            delimiters.AddRange(matches);
+
+            return delimiters.ToArray();
         }
     }
 }

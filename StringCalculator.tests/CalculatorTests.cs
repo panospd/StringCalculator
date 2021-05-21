@@ -20,6 +20,8 @@ namespace StringCalculator.tests
         [TestCase("1\n2,3", ExpectedResult = 6)]
         [TestCase("//;\n1;3", ExpectedResult = 4)]
         [TestCase("2,1003", ExpectedResult = 2)]
+        [TestCase("//[***]\n1***3", ExpectedResult = 4)]
+        [TestCase("//[***][&&&]\n1***3&&&6", ExpectedResult = 10)]
         public int Add_WhenInputIsEmpty_ShouldReturn0(string input)
         {
             return sut.Add(input);

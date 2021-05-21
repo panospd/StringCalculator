@@ -11,5 +11,10 @@ namespace StringCalculator.core.helpers
         {
             return numbers.Where(n => n <= max);
         }
+
+        public static bool HasCustomDelimiter(this string input)
+        {
+            return input.StartsWith("//");
+        }
     }
 }
