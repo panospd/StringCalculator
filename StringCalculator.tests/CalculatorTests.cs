@@ -45,7 +45,7 @@ namespace StringCalculator.tests
         public void Add_WhenInvalidDelimiterPassed_ShouldThrowException()
         {
             const string input = "//[\n1[2";
-            Assert.Throws<InvalidDelimitersException>(() => sut.Add(input), "Invalid delimiter(s) detected, [");
+            Assert.Throws<InvalidDelimitersException>(() => sut.Add(input), "Invalid delimiter detected, [");
         }
     }
 }
