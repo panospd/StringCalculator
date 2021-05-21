@@ -40,5 +40,12 @@ namespace StringCalculator.tests
             const string input = "-1,2,3,-4,-9";
             Assert.Throws<NegativeNumbersNotAllowedException>(() => sut.Add(input), "Negatives not allowed, -1, -4, -9");
         }
+
+        [Test]
+        public void Add_WhenInvalidDelimiterPassed_ShouldThrowException()
+        {
+            const string input = "//[\n1[2";
+            Assert.Throws<InvalidDelimitersException>(() => sut.Add(input), "Invalid delimiter(s) detected, [");
+        }
     }
 }

@@ -7,7 +7,6 @@ namespace StringCalculator.core
         public NegativeNumbersNotAllowedException(string message)
             :base(message)
         {
-
         }
     }
 }
