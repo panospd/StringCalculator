@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace StringCalculator.core.helpers
 {
-    public static class ToDelimitersExtention
+    internal static class ToDelimitersExtention
     {
         public static Delimiter[] ToDelimiters(this IEnumerable<string> delimiters)
         {

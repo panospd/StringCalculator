@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace StringCalculator.core.helpers
 {
-    public static class InvalidDelimitersExtention
+    internal static class InvalidDelimitersExtention
     {
         public static IEnumerable<string> InvalidDelimiters(this IEnumerable<string> delimiters, params string[] invalidDelimiters) 
             => delimiters.Where(d => invalidDelimiters.Contains(d));

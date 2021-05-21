@@ -16,6 +16,7 @@ namespace StringCalculator.tests
         [TestCase("", ExpectedResult = 0)]
         [TestCase("1", ExpectedResult = 1)]
         [TestCase("1,2", ExpectedResult = 3)]
+        [TestCase("1,2,", ExpectedResult = 3)]
         [TestCase("1,2,3,6,4,2,9", ExpectedResult = 27)]
         [TestCase("1\n2,3", ExpectedResult = 6)]
         [TestCase("//;\n1;3", ExpectedResult = 4)]
@@ -46,6 +47,13 @@ namespace StringCalculator.tests
         {
             const string input = "//[\n1[2";
             Assert.Throws<InvalidDelimitersException>(() => sut.Add(input), "Invalid delimiter detected, [");
+        }
+
+        [Test]
+        public void Add_WhenInvalidArgumentPassed_ShouldThrowException()
+        {
+            const string input = "//;\n1;2;a";
+            Assert.Throws<InvalidNumberArgumentException>(() => sut.Add(input), "Invalid number passed, a");
         }
     }
 }
