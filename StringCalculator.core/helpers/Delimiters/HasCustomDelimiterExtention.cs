@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace StringCalculator.core.helpers
+﻿namespace StringCalculator.core.helpers
 {
     public static class HasCustomDelimiterExtention
     {
