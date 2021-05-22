@@ -1,6 +1,4 @@
-﻿using StringCalculator.core.helpers;
-
-namespace StringCalculator.core
+﻿namespace StringCalculator.core
 {
     public class Calculator
     {
@@ -9,12 +7,15 @@ namespace StringCalculator.core
             if (string.IsNullOrEmpty(numbers))
                 return default;
 
-            var delimiters = Delimiter
-                .ParseDelimiters(numbers)
-                .Values();
+            var delimiterSet = Delimiter
+                .ParseDelimiters(numbers);
 
-            return NumbersArgs
-                .Parse(delimiters, numbers)
+            string inputArgs = !delimiterSet.HasCustom
+               ? numbers
+               : numbers.Split('\n')[1];
+
+            return NumberSet
+                .Parse(delimiterSet.Delimiters, inputArgs)
                 .Sum();
         }
     }

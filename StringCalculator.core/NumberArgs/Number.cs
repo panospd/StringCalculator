@@ -2,9 +2,6 @@
 {
     public class Number
     {
-        public int Value { get; }
-        public bool IsValid => Value > 0;
-
         private Number(string value)
         {
             var success = int.TryParse(value, out int result);
@@ -14,6 +11,9 @@
 
             Value = result;
         }
+
+        public int Value { get; }
+
         public static Number FromString(string value) => new Number(value);
     }
 }

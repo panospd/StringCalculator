@@ -1,5 +1,4 @@
-﻿using StringCalculator.core.helpers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -7,36 +6,32 @@ namespace StringCalculator.core
 {
     internal class Delimiter
     {
-        private string[] InvalidDelimiters = new string[] { "[", "]" };
-        public string Value { get; }
+        private const string DefaultDelimiter = ",";
 
-        public Delimiter(string value)
-        {
-            if(InvalidDelimiters.Contains(value))
-                throw new InvalidDelimitersException("Invalid delimiter detected, " + string.Join(',', value));
-
-            Value = value;
-        }
-
-        public static Delimiter[] ParseDelimiters(string input, string defaultDelimiter = ",")
+        public static DelimiterSet ParseDelimiters(string input)
         {
             var delimiters = new List<string> { "\n" };
 
-            if (!input.HasCustomDelimiter())
+            if (!HasCustomDelimiter(input))
             {
-                delimiters.Add(defaultDelimiter);
-                return delimiters.ToDelimiters();
+                delimiters.Add(DefaultDelimiter);
+                return new DelimiterSet(delimiters.ToArray());
             }
 
             var delimiterSection = input.Split('\n')[0];
-            var delimiter = delimiterSection.Substring(2, delimiterSection.Length - 2);
+            var delimiterValues = delimiterSection.Substring(2, delimiterSection.Length - 2);
 
-            if (delimiter.Length == 1)
-                return (new string[] { delimiter, "\n" }).ToDelimiters();
+            if (delimiterValues.Length == 1)
+                return new DelimiterSet((new string[] { delimiterValues, "\n" }), true);
 
-            delimiters.AddRange(ParseLongDelimiters(delimiter));
+            delimiters.AddRange(ParseLongDelimiters(delimiterValues));
 
-            return delimiters.ToDelimiters();
+            return new DelimiterSet(delimiters.ToArray(), true);
+        }
+
+        private static bool HasCustomDelimiter(string input)
+        {
+            return input.StartsWith("//");
         }
 
         private static IEnumerable<string> ParseLongDelimiters(string delimiters)
