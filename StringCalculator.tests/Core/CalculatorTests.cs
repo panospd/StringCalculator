@@ -48,5 +48,25 @@ namespace StringCalculator.tests
             const string input = "//;\n1;2;a";
             Assert.Throws<InvalidNumberArgumentException>(() => Calculator.Add(input), "Invalid number passed, a");
         }
+
+        [Test]
+        public void Add_WhenCalled_IgnoresEmptyStringDelimiters()
+        {
+            var input = "//[***][]\n1***36";
+
+            var result = Calculator.Add(input);
+
+            Assert.AreEqual(37, result);
+        }
+
+        [Test]
+        public void AddWhenCalled_ShouldRespectWhiteSpaceDelimiters()
+        {
+            var input = "//[***][ ]\n1***3 6";
+
+            var result = Calculator.Add(input);
+
+            Assert.AreEqual(10, result);
+        }
     }
 }

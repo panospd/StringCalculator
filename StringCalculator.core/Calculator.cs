@@ -7,8 +7,7 @@
             if (string.IsNullOrEmpty(numbers))
                 return default;
 
-            var delimiterSet = Delimiter
-                .ParseDelimiters(numbers);
+            var delimiterSet = Delimiter.ParseDelimiters(numbers);
 
             string inputArgs = !delimiterSet.HasCustom
                ? numbers

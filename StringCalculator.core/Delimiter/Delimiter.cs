@@ -26,7 +26,11 @@ namespace StringCalculator.core
 
             delimiters.AddRange(ParseLongDelimiters(delimiterValues));
 
-            return new DelimiterSet(delimiters.ToArray(), true);
+            return new DelimiterSet(
+                delimiters
+                    .Where(d => !string.IsNullOrEmpty(d))
+                    .ToArray(), 
+                true);
         }
 
         private static bool HasCustomDelimiter(string input)
